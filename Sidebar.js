@@ -2,11 +2,11 @@ import React, {useEffect,useState} from 'react';
 import './Sidebar.css';
 import {Avatar,IconButton} from "@mui/material";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ChatIcon from "@mui/icons-material/Chat";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { SearchOutlined } from '@mui/icons-material';
 import SidebarChat from './SidebarChat';
-import db from "./firebase.js";
+import db, { auth } from "./firebase.js";
 import { useStateValue } from './StateProvider';
 
 function Sidebar() {
@@ -30,7 +30,7 @@ function Sidebar() {
         }
 
     },[]);
-    
+
 
 
     return (
@@ -38,17 +38,8 @@ function Sidebar() {
             <div className="sidebar__header">
                 <Avatar src={user?.photoURL}/>
                 <div className="sidebar__headerRight">
-                    <IconButton>
-                        <DonutLargeIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <ChatIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <MoreVertIcon/>
-                    </IconButton>
-                </div>
-
+                    <IconButton type="button" onClick={refreshPage}> <ExitToAppIcon/> </IconButton>
+                 </div>
             </div>
             <div className="sidebar__search">
                 <div className="sidebar__searchContainer">
@@ -66,6 +57,10 @@ function Sidebar() {
             
         </div>
     );
+    function refreshPage()
+    {
+        window.location.reload();
+    }
 }
 
 export default Sidebar;
